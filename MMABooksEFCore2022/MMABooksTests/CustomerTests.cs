@@ -11,7 +11,6 @@ namespace MMABooksTests
     [TestFixture]
     public class CustomerTests
     {
-        /*
         MMABooksContext dbContext;
         Customer? c;
         List<Customer>? customers;
@@ -26,23 +25,33 @@ namespace MMABooksTests
         [Test]
         public void GetAllTest()
         {
+            customers = dbContext.Customers.OrderBy(c => c.CustomerId).ToList();
+            Assert.AreEqual(696, customers.Count);
+            Assert.AreEqual("Molunguri, A", customers[0].Name);
+            PrintAll(customers);
         }
 
         [Test]
         public void GetByPrimaryKeyTest()
         {
+            c = dbContext.Customers.Find(1);
+            Assert.IsNotNull(c);
+            Assert.AreEqual("Molunguri, A", c.Name);
+            Console.WriteLine(c);
         }
 
         [Test]
         public void GetUsingWhere()
         {
-            // get a list of all of the customers who live in OR
+            customers = dbContext.Customers.Where(c => c.StateCode == "OR").OrderBy(c => c.Name).ToList();
+            Assert.AreEqual(5, customers.Count);
+            PrintAll(customers);
         }
 
         [Test]
         public void GetWithInvoicesTest()
         {
-           // get the customer whose id is 20 and all of the invoices for that customer
+            // get the customer whose id is 20 and all of the invoices for that customer
         }
 
         [Test]
@@ -86,7 +95,7 @@ namespace MMABooksTests
             {
                 Console.WriteLine(c);
             }
+          
         }
-        */
     }
 }
