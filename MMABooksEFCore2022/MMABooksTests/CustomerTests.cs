@@ -78,19 +78,36 @@ namespace MMABooksTests
         [Test]
         public void DeleteTest()
         {
-
+            c = dbContext.Customers.Find(1);
+            dbContext.Customers.Remove(c);
+            dbContext.SaveChanges();
+            Assert.IsNull(dbContext.Customers.Find(1));
         }
 
         [Test]
         public void CreateTest()
         {
-
+            c = new Customer();
+            c.Name = "Mahler, Stephenee";
+            c.Address = "123 W Burnside St";
+            c.City = "Portland";
+            c.StateCode = "OR";
+            c.ZipCode = "97209";
+            dbContext.Customers.Add(c);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.Customers.Find(c.CustomerId));
         }
 
         [Test]
         public void UpdateTest()
         {
+            c = dbContext.Customers.Find(1);
+            c.Name = "Molunguri, Annie";
+            dbContext.SaveChanges();
 
+            dbContext = new MMABooksContext();
+            c = dbContext.Customers.Find(1);
+            Assert.AreEqual("Molunguri, Annie", c.Name);
         }
 
         public void PrintAll(List<Customer> customers)
