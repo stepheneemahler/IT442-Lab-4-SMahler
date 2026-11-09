@@ -67,19 +67,35 @@ namespace MMABooksTests
         [Test]
         public void DeleteTest()
         {
-
+            p = dbContext.Products.Find("ADC4");
+            dbContext.Products.Remove(p);
+            dbContext.SaveChanges();
+            Assert.IsNull(dbContext.Products.Find("ADC4"));
         }
 
         [Test]
         public void CreateTest()
         {
-
+            p = new Products();
+            p.ProductCode = "STEPH";
+            p.Description = "Steph's Guide";
+            p.UnitPrice = 59.99m;
+            p.OnHandQuantity = 100;
+            dbContext.Products.Add(p);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.Products.Find("STEPH"));
         }
 
         [Test]
         public void UpdateTest()
         {
+            p = dbContext.Products.Find("A4CS");
+            p.UnitPrice = 60.00m;
+            dbContext.SaveChanges();
 
+            dbContext = new MMABooksContext();
+            p = dbContext.Products.Find("A4CS");
+            Assert.AreEqual(60.00m, p.UnitPrice);
         }
         public void PrintAll(List<Products> products)
         {
